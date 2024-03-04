@@ -41,17 +41,38 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
 
+afterEvaluate{
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+//                from components.web
+            }
+//            register<MavenPublication>("release") {
+//                groupId = "com.github.VishwaSoundararjan"
+//                artifactId = "sampleandroidlibrary"
+//                version = "0.0.3"
+//
+//                afterEvaluate {
+//                    from(components["release"])
+//                }
+//            }
+            register('release', MavenPublication) {
+                // Configure the publication
+                groupId = 'com.github.VishwaSoundararjan'
+                artifactId = 'sampleandroidlibrary'
+                version = '0.0.3'
 
-publishing {
-    publications {
-        register<MavenPublication>("release") {
-            groupId = "demo-simple-android-lib"
-            artifactId = "demo-simple-android-lib"
-            version = "0.0.3"
-
-            afterEvaluate {
-                from(components["release"])
+                // Publish the output of the 'release' component
+                from(components['release'])
             }
         }
+
+//        singleVariant("release") {
+//            withSourcesJar()
+//            withJavadocJar()
+//        }
+
     }
 }
+
+
